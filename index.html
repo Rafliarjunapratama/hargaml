@@ -1,1676 +1,1178 @@
-<html lang="id"><head>
-    <meta name="google-site-verification" content="U1gp4oZWk2AzSetMb6_4uuVSntVzjLfK2kDkBx6tsl4">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Kalkulator Harga Akun Mobile Legends</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="icon" type="image/x-icon" href="logo_web.png"> 
-    </head>
-<body>
-    <div id="fixedVisitorCounter">
-        <i class="fas fa-users"></i> <span id="visitorCount">59.145 Player</span>
-    </div>
-
-    <div class="container">
-        <h1>Kalkulator Harga Akun Mobile Legends (GRATIS)!</h1>
-        <p class="description">Estimasi harga akun MLBB berdasarkan akun lu.</p>
-
-        <div class="form-section">
-            <h2><i class="fas fa-info-circle"></i> Informasi Dasar Akun</h2>
-
-            <div class="form-group">
-                <label for="tier"><i class="fas fa-crown"></i>Pilih Tier lu yang sekarang:</label>
-                <select id="tier">
-                    <option value="Warrior">Warrior</option>
-                    <option value="Elite">Elite</option>
-                    <option value="Master">Master</option>
-                    <option value="Grandmaster">Grandmaster</option>
-                    <option value="Epic">Epic</option>
-                    <option value="Legend">Legend</option>
-                    <option value="Mythic">Mythic</option>
-                    <option value="Mythical Honor">Mythical Honor</option>
-                    <option value="Mythical Glory">Mythical Glory</option>
-                    <option value="Mythical Immortal">Mythical Immortal</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="winRate"><i class="fas fa-percent"></i>WR Rank All Season(%):</label>
-                <input type="number" id="winRate" min="0" max="100" step="0.1" placeholder="Cth: 55.7">
-                <div class="progress-bar-container">
-                    <div class="progress-bar" id="winRateProgressBar" style="width: 0%;"></div>
-                </div>
-                <div class="error-message" id="winRate-error"></div>
-            </div>
-            
-            <div class="form-group">
-                <label for="totalRankMatches"><i class="fas fa-gamepad"></i> Total Rank All Season:</label>
-                <input type="number" id="totalRankMatches" min="0" placeholder="Cth: 2500">
-                <small>Jumlah total seluruh Match Rank lu.</small>
-                <div class="error-message" id="totalRankMatches-error"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="totalHeroes"><i class="fas fa-users"></i> Jumlah Hero yang Dimiliki:</label>
-                <input type="number" id="totalHeroes" min="0" placeholder="Cth: 110">
-                <div class="error-message" id="totalHeroes-error"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="emblemLevel60"><i class="fas fa-gem"></i> Jumlah Emblem Level 60/MAX:</label>
-                <input type="number" id="emblemLevel60" min="0" max="7" placeholder="Cth: 5">
-                <small>Jumlah emblem yang udah MAX (<span id="emblemCount">0</span>/7).</small>
-                <div class="error-message" id="emblemLevel60-error"></div>
-            </div>
-        </div>
-
-        <div class="form-section">
-            <h2><i class="fas fa-tshirt"></i> Koleksi Skin</h2>
-            <p class="description">Masukkin jumlah skin yang lu punya sesuai kategori.</p>
-
-            <div class="skin-category-grid">
-                <div class="form-group">
-                    <label for="skinSupreme">Supreme:</label>
-                    <input type="number" id="skinSupreme" min="0" placeholder="0">
-                </div>
-                <div class="form-group">
-                    <label for="skinGrand">Grand:</label>
-                    <input type="number" id="skinGrand" min="0" placeholder="0">
-                </div>
-                <div class="form-group">
-                    <label for="skinExquisite">Exquisite:</label>
-                    <input type="number" id="skinExquisite" min="0" placeholder="0">
-                </div>
-                <div class="form-group">
-                    <label for="skinDeluxe">Deluxe:</label>
-                    <input type="number" id="skinDeluxe" min="0" placeholder="0">
-                </div>
-                <div class="form-group">
-                    <label for="skinExceptional">Exceptional:</label>
-                    <input type="number" id="skinExceptional" min="0" placeholder="0">
-                </div>
-                <div class="form-group">
-                    <label for="skinCommon">Common:</label>
-                    <input type="number" id="skinCommon" min="0" placeholder="0">
-                </div>
-                <div class="form-group">
-                    <label for="skinPainted">Painted Skin:</label>
-                    <input type="number" id="skinPainted" min="0" placeholder="0">
-                </div>
-            </div>
-        </div>
-        
-        <div class="button-group">
-            <button id="calculateBtn" class="main-action-button calculate-button"><i class="fas fa-calculator"></i> Hitung Harga Akun</button>
-            <button id="resetBtn" class="main-action-button reset-button"><i class="fas fa-redo-alt"></i> Reset</button>
-        </div>
-
-        <div class="result-section">
-            <h2>Estimasi Harga Akun lu:</h2>
-            <p id="resultPrice" class="fade-in-result">Rp 0</p>
-            <div id="priceBreakdown" class="price-breakdown">
-                </div>
-            <p class="disclaimer">Estimasi ini cuma prediksi aja ya dan harga sebenarnya bisa bervariasi di pasar.</p>
-        </div>
-        
-        <div class="form-section feedback-section">
-            <h2><i class="fas fa-share-alt"></i>Bermanfaat kan ywdh cepet bagiin!</h2>
-            <p class="description">Bantuin teman-teman lu buat cek harga akun MLBB juga!</p>
-            <div class="share-buttons">
-                <a href="https://wa.me/?text=Cek%20harga%20akun%20Mobile%20Legends%20punyamu%20sekarang%20dengan%20kalkulator%20ini!%20%F0%9F%92%B0%F0%9F%94%8D%0Ahttps%3A%2F%2Fkalkulatorakun.netlify.app%2F" target="_blank" class="share-button whatsapp" aria-label="Bagikan ke WhatsApp">
-                    <i class="fab fa-whatsapp"></i> WhatsApp
-                </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkalkulatorakun.netlify.app%2F&amp;quote=Cek%20harga%20akun%20Mobile%20Legends%20punyamu%20sekarang%20dengan%20kalkulator%20ini!%20%F0%9F%92%B0%F0%9F%94%8D" target="_blank" class="share-button facebook" aria-label="Bagikan ke Facebook">
-                    <i class="fab fa-facebook-f"></i> Facebook
-                </a>
-            </div>
-        </div>
-        <div class="form-section info-section">
-            <h2><i class="fas fa-lightbulb"></i> Apa yang Membuat Akun MLBB kita Berharga bang?</h2>
-            <p>Harga sebuah akun Mobile Legends dipengaruhi oleh beberapa faktor utama. Memahami ini akan membantu Anda menilai akun lebih baik:</p>
-            <ul>
-                <li><strong>Koleksi Skin:</strong> Jenis dan jumlah skin adalah penentu harga terbesar. Skin kategori Supreme, Grand, dan Exquisite yang langka memiliki nilai jual sangat tinggi karena sulit didapatkan.</li>
-                <li><strong>Level Emblem:</strong> Emblem yang sudah mencapai Level 60 (maksimal) sangat krusial untuk performa di dalam game dan menambah nilai signifikan pada akun.</li>
-                <li><strong>Tier Saat Ini:</strong> Tier tinggi menunjukkan pencapaian dan skill pemain, membuat akun lebih menarik bagi pembeli yang ingin langsung bermain di level kompetitif.</li>
-                <li><strong>Win Rate Rank &amp; Match:</strong> Win Rate di pertandingan Ranked yang tinggi, **terutama jika didukung oleh jumlah pertandingan yang banyak**, mencerminkan rekam jejak performa akun yang kuat dan seringkali menjadi daya tarik utama.</li>
-            </ul>
-            <p>Perlu diinget, Alesan di atas itu saling memengaruhi dan harga akhir di pasar bisa beda.</p>
-        </div>
-
-        <div class="form-section feedback-section">
-            <h2><i class="fas fa-comment-dots"></i> Kasih Masukan &amp; Saran</h2>
-            <p class="description">Punya saran atau ide untuk kalkulator ini? gass komen!</p>
-            <form action="https://script.google.com/macros/s/AKfycbwD0pyo1yYfEnGUbNX7uT4Qwv1SYsI7PpLBKvqlNqRLttMe7oTDpFAe6MBNomG2zf4Ryg/exec" method="POST" id="feedbackForm">
-                <div class="form-group">
-                    <label for="username"><i class="fas fa-user"></i>Username/Nama:</label>
-                    <input type="text" name="username" id="feedbackUsername" placeholder="Cth: RRQ-Fahri">
-                </div>
-                <div class="form-group">
-                    <label for="suggestion"><i class="fas fa-comment-alt"></i>Ketik saran lu di mari:</label>
-                    <textarea name="suggestion" id="feedbackSuggestion" rows="5" required="" placeholder="Tulis di mari terserah"></textarea>
-                </div>
-                <button type="submit" class="send-feedback-button"><i class="fas fa-paper-plane"></i>GAS KOMEN!</button>
-            </form>
-            <p id="feedbackMessage" class="feedback-message"></p>
-        </div>
-
-        <div class="form-section comments-display-section">
-            <h2><i class="fas fa-comments"></i> Komentar &amp; Saran Pengunjung</h2>
-            <p class="description">Lihat apa kata Player lain tentang kalkulator ini!</p>
-            <div id="commentsList" class="comments-list"><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Rizki</span>
-                    <span class="comment-timestamp">2 Jul 2025, 20.13</span>
-                </div>
-                <div class="comment-body">
-                    Keren bang gua jadi tau harga nya, mahal juga akun gua ya wkwk
-                </div>
-                 <div class="admin-reply">
-                    <p><strong>Balasan Admin:</strong></p>
-                    <p>wiihhh sultan nih kaya nya 😁</p>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">atitkelintit</span>
-                    <span class="comment-timestamp">2 Des 2025, 17.59</span>
-                </div>
-                <div class="comment-body">
-                    harga akun gua hampir 4jt tapi ditawar orang ga sampe 1jt🗿
-                </div>
-                 <div class="admin-reply">
-                    <p><strong>Balasan Admin:</strong></p>
-                    <p>sayang lah kalo ga sampe sejuta mah ya kan? wkwk</p>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Hamzah ash shiddiqi</span>
-                    <span class="comment-timestamp">28 Jan 2026, 21.28</span>
-                </div>
-                <div class="comment-body">
-                    Bg klo advance server gmn? 
-                </div>
-                 <div class="admin-reply">
-                    <p><strong>Balasan Admin:</strong></p>
-                    <p>sama aja sih tapi kek kurang seru kalo bukan akun ori </p>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Anonim</span>
-                    <span class="comment-timestamp">14 Feb 2026, 05.34</span>
-                </div>
-                <div class="comment-body">
-                    Mang ea 300 ribu?
-                </div>
-                 <div class="admin-reply">
-                    <p><strong>Balasan Admin:</strong></p>
-                    <p>dikit amat 300rb wkwk</p>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Arkaan</span>
-                    <span class="comment-timestamp">19 Feb 2026, 00.48</span>
-                </div>
-                <div class="comment-body">
-                    Saya kaget bang saya kira bakal 300rb kebawah ternyata sejuta saya kira karna skin grand 3 SMA excuisite 1
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Arkaan</span>
-                    <span class="comment-timestamp">19 Feb 2026, 00.48</span>
-                </div>
-                <div class="comment-body">
-                    Saya kaget bang saya kira bakal 300rb kebawah ternyata sejuta saya kira karna skin grand 3 SMA excuisite 1
-                </div>
-                 <div class="admin-reply">
-                    <p><strong>Balasan Admin:</strong></p>
-                    <p>kan bisa jadi karna tier dan emblem mungkin </p>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Karizuu°</span>
-                    <span class="comment-timestamp">23 Feb 2026, 22.11</span>
-                </div>
-                <div class="comment-body">
-                    Gw expect akun gw cuma 100 ribu Ampe 250 ribu, eh pas di estimasi 700 ribu loh. Gak nyangka wok. 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Pal</span>
-                    <span class="comment-timestamp">25 Feb 2026, 05.45</span>
-                </div>
-                <div class="comment-body">
-                    ini skin supreme = legend? serius 1 skin dihargain 100k?
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Fluf</span>
-                    <span class="comment-timestamp">16 Mar 2026, 23.13</span>
-                </div>
-                <div class="comment-body">
-                    Lejen 10 diitung sejuta…ga salah bang ?
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Wooya</span>
-                    <span class="comment-timestamp">21 Mar 2026, 15.37</span>
-                </div>
-                <div class="comment-body">
-                    Anjay gila estimasi akun gua di 4 juta, gua kira gk bakal smpe sgitu
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Tom*</span>
-                    <span class="comment-timestamp">22 Mar 2026, 14.14</span>
-                </div>
-                <div class="comment-body">
-                    Imo masuk 2jt lumayan ya. Cuma di skin lumyan sayang, ada bnyak walaupun gratisan hee, cuma masuk 700k
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Tanpa nama</span>
-                    <span class="comment-timestamp">26 Mar 2026, 11.32</span>
-                </div>
-                <div class="comment-body">
-                    Akun 3,7 juta dihargai 300 sampai 500 ama orang, untung cek disini jadi tau harga aslinya😁
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Cindy </span>
-                    <span class="comment-timestamp">26 Mar 2026, 18.09</span>
-                </div>
-                <div class="comment-body">
-                    yang aesthetic 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Jawir </span>
-                    <span class="comment-timestamp">26 Mar 2026, 18.10</span>
-                </div>
-                <div class="comment-body">
-                    harga akun gw 60 an lebih jir,emang ada yg mau??, soalnya lagi Bu ni wkwkwk
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Jawir </span>
-                    <span class="comment-timestamp">26 Mar 2026, 18.11</span>
-                </div>
-                <div class="comment-body">
-                    harga akun gw 60 an lebih jir,emang ada yg mau??, soalnya lagi Bu ni wkwkwk
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">michael? </span>
-                    <span class="comment-timestamp">26 Mar 2026, 21.07</span>
-                </div>
-                <div class="comment-body">
-                    Akun gw di sini 1,2 jt an tapi di pasaran + menurut jb dibawah 500k padahal ada 777 dm masih be 500k ke bawah 😊
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Chris</span>
-                    <span class="comment-timestamp">28 Mar 2026, 13.35</span>
-                </div>
-                <div class="comment-body">
-                    Harga akun gw 4.5jt
-Pas mau dijual ditawarin 1jtaan🗿
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Annyonms9</span>
-                    <span class="comment-timestamp">29 Mar 2026, 11.57</span>
-                </div>
-                <div class="comment-body">
-                    Di pasar lokal-luar negeri akun ku hampir tembus 50 juga (47 juta 586 ribu )
-
-Nah berhubung di pasar lokal ada potongan nih karena costumer demand lagi low, dari 47 juta di kurang setengah jadi 23 jutaan itu belum pajak kalo ada, kalo pasar LN pure uang masuk ke gw kalo memang niat jual kisaran 2838 ribu dollar berkisar 48 juta karena umur akun di hitung sama diamond sisa yang ada di akun,
-
-TPI blm gw lepas, tapi di Sina terjun bebas cuma 7 juta sekian, bahkan gw coba iseng nawarin malah dapet costumer bego anjink ga punya duit belaga nawar 300ribu sambil bawa bawa forum jubel.facebook, bahkan malah nyalahin
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Plerr</span>
-                    <span class="comment-timestamp">29 Mar 2026, 13.50</span>
-                </div>
-                <div class="comment-body">
-                    Plerr
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Vinsan</span>
-                    <span class="comment-timestamp">29 Mar 2026, 14.18</span>
-                </div>
-                <div class="comment-body">
-                    Andai bisa dipakai untuk jual akun mayan harga akun gw :v
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">syahrian</span>
-                    <span class="comment-timestamp">29 Mar 2026, 14.26</span>
-                </div>
-                <div class="comment-body">
-                    saran saya + Border kak soalnya ada tuh Border 5k diamond 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">yapping bae si Annyonms9</span>
-                    <span class="comment-timestamp">29 Mar 2026, 14.27</span>
-                </div>
-                <div class="comment-body">
-                    Yaudh jual aja sana di LN wir ribet amat 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">yapping bae si Annyonms9</span>
-                    <span class="comment-timestamp">29 Mar 2026, 14.27</span>
-                </div>
-                <div class="comment-body">
-                    Yaudh jual aja sana di LN wir ribet amat 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">yapping bae si Annyonms9</span>
-                    <span class="comment-timestamp">29 Mar 2026, 14.27</span>
-                </div>
-                <div class="comment-body">
-                    Yaudh jual aja sana di LN wir ribet amat 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">yapping bae si Annyonms9</span>
-                    <span class="comment-timestamp">29 Mar 2026, 14.27</span>
-                </div>
-                <div class="comment-body">
-                    Yaudh jual aja sana di LN wir ribet amat 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">...</span>
-                    <span class="comment-timestamp">29 Mar 2026, 14.47</span>
-                </div>
-                <div class="comment-body">
-                    hadeh ini harga ml atau sabu,padahal harga ml beda² tergantung target penjualan/ga market (ga mungkin hitungan di atas jadi patokan harga)
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">bapak li kontol</span>
-                    <span class="comment-timestamp">29 Mar 2026, 14.55</span>
-                </div>
-                <div class="comment-body">
-                    ngtd
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Makelar </span>
-                    <span class="comment-timestamp">29 Mar 2026, 15.03</span>
-                </div>
-                <div class="comment-body">
-                    Gas terus bang naikkan harga akun ml
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Rame tuh di fb</span>
-                    <span class="comment-timestamp">29 Mar 2026, 15.10</span>
-                </div>
-                <div class="comment-body">
-                    .
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Rame tuh di fb</span>
-                    <span class="comment-timestamp">29 Mar 2026, 15.10</span>
-                </div>
-                <div class="comment-body">
-                    .
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Anonim</span>
-                    <span class="comment-timestamp">29 Mar 2026, 15.10</span>
-                </div>
-                <div class="comment-body">
-                    Y
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Rusdi</span>
-                    <span class="comment-timestamp">29 Mar 2026, 15.14</span>
-                </div>
-                <div class="comment-body">
-                    Estimasi top up gw 20 jtan
-
-Dijual 7,5jt itupun cuman perkiraan dari si Mimin
-
-Kalau yg beli makelar paling 1,5jtan gokil
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Jawa</span>
-                    <span class="comment-timestamp">29 Mar 2026, 15.17</span>
-                </div>
-                <div class="comment-body">
-                    Bjit akun gua tembus 20jeti
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Dek</span>
-                    <span class="comment-timestamp">29 Mar 2026, 15.35</span>
-                </div>
-                <div class="comment-body">
-                    Lumanya 2.306.000 juga kalau dijual pasti dibawah 500rb🤣
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">ga semua skin harga flat</span>
-                    <span class="comment-timestamp">29 Mar 2026, 15.39</span>
-                </div>
-                <div class="comment-body">
-                    hitungan ngaco bang, jujur dah
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Rrq-adit_jumpShot</span>
-                    <span class="comment-timestamp">29 Mar 2026, 15.53</span>
-                </div>
-                <div class="comment-body">
-                    Telat bgt tau link kaya gini , estimasi akun 3jt++ , sold di harga 880rb , nyesek euy
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">rrq skaylar</span>
-                    <span class="comment-timestamp">29 Mar 2026, 15.53</span>
-                </div>
-                <div class="comment-body">
-                    webnya mantap akun aku berhasil dijual 3jt
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Fadhilaliframadhan</span>
-                    <span class="comment-timestamp">29 Mar 2026, 15.57</span>
-                </div>
-                <div class="comment-body">
-                    Gak nyangka akun gw harga 3.7 jt tapi org² mau beli diharga 1-2 jt
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Axe</span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.05</span>
-                </div>
-                <div class="comment-body">
-                    Wkwkwk.. Gak espect bakal diangka 3,1 JT..Kwkwkwkw.. 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">givan</span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.08</span>
-                </div>
-                <div class="comment-body">
-                    harga akun gw 2jt lebih ditawar orang 250rb
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">4ndrie4449</span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.08</span>
-                </div>
-                <div class="comment-body">
-                    Terus yang nampung siapa min? 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Oheb</span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.12</span>
-                </div>
-                <div class="comment-body">
-                    Buset skin supreme/legend dihargain 100k satuannya
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">P star7 </span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.13</span>
-                </div>
-                <div class="comment-body">
-                    Hampir nyentuh 6jt njir akun gue wkwk
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Rinn69</span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.21</span>
-                </div>
-                <div class="comment-body">
-                    Dayom ternyata harga akun gw hampir 2,5 jeti njir. Tapi ketika dijual di market kok gak nyampe 800 an yah cdihh bgt
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Belkuro</span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.22</span>
-                </div>
-                <div class="comment-body">
-                    Kirain akun gua seharga 700/800 an karena hanya modal even gratis tapis sampek 1.7 juta anjir, walaupun bu tapi ndak dijual sih hanya kepo berapa harga akun
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Anjay</span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.26</span>
-                </div>
-                <div class="comment-body">
-                    Anjay 2.5jt🤣
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">laaa</span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.27</span>
-                </div>
-                <div class="comment-body">
-                    emg ga ada ya akun ex apanya duluuu bukan rank skrg tpi high rank
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">pelerkuda</span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.32</span>
-                </div>
-                <div class="comment-body">
-                    buset 1 skin legend cuma 100rb?
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">kiki</span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.35</span>
-                </div>
-                <div class="comment-body">
-                    seriusan min akun gratisan gua 1,5jt modal tier rank tinggi wkwk
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Darirot</span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.35</span>
-                </div>
-                <div class="comment-body">
-                    Tambahin recall bg
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">kingdom Riski</span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.45</span>
-                </div>
-                <div class="comment-body">
-                    mantap
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">epos epul</span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.49</span>
-                </div>
-                <div class="comment-body">
-                    bang saran gua high rank juga diitung, ga cuman rank saat ini doang
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Kyy Rosmerian </span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.51</span>
-                </div>
-                <div class="comment-body">
-                    Bagus
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">a</span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.53</span>
-                </div>
-                <div class="comment-body">
-                    a
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">adi</span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.54</span>
-                </div>
-                <div class="comment-body">
-                    akun gua mahal tapi kenapa skin Collab 75 terus collecttor 2 100k😭
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Rixeno </span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.55</span>
-                </div>
-                <div class="comment-body">
-                    1 Skin lagend di harga i 100k punya 2 skin legend cuma dpt 200k kurang work it 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Dry</span>
-                    <span class="comment-timestamp">29 Mar 2026, 16.58</span>
-                </div>
-                <div class="comment-body">
-                    Mantap juga, akun gw ternyata di range 8jtan, untung ga dijual ke juragan kunyuk 2jt ahahha
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Jx</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.00</span>
-                </div>
-                <div class="comment-body">
-                    Cihuy
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Seriusan ini 1 skin suprem 100k</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.02</span>
-                </div>
-                <div class="comment-body">
-                    Rrq rayhan
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">skylar</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.10</span>
-                </div>
-                <div class="comment-body">
-                    Aku suka nenen bude clara
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Atitpeyut</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.11</span>
-                </div>
-                <div class="comment-body">
-                    Masa sampe 2.5 sih akun ku kok 400 aja gak laku ya. Pasti ini itungnya dari gaca/buy akun scr ksr ny ya
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">RRQ FAHRI</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.11</span>
-                </div>
-                <div class="comment-body">
-                    Adain ex ranknya 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">althokwe</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.13</span>
-                </div>
-                <div class="comment-body">
-                    Yakin skin legend di hargai 100k/pcs? Sekarang gw tanya top-up dm 100k dimana yang bisa dapet skin legend? 😆
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Evos.amba</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.18</span>
-                </div>
-                <div class="comment-body">
-                    Jir ga nyangka 3juta
-Padahal waktu itu gw jual cuman dapet 400k doang dan gw hb wkakaka
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">wowo</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.18</span>
-                </div>
-                <div class="comment-body">
-                    gokil sejuta enam ratus sekian🗿
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">De lzyxn</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.20</span>
-                </div>
-                <div class="comment-body">
-                    tambahin buat game lain bang😁
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Bedul</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.23</span>
-                </div>
-                <div class="comment-body">
-                    Jadi klo mau jual bisa pake harga ini min? 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Rukundayo </span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.30</span>
-                </div>
-                <div class="comment-body">
-                    Penasaran akun gua dulu berapa 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Edi_AlvianSyah</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.38</span>
-                </div>
-                <div class="comment-body">
-                    Yaudah deh kok nggak nih dapat duit ku 😂
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">RRQ-Fahri</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.39</span>
-                </div>
-                <div class="comment-body">
-                    Kocak. Masa nambah 1 supreme cuma nambah 100k. Perbaiki dulu bang wkwk
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Ditzzz</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.41</span>
-                </div>
-                <div class="comment-body">
-                    Disini hampir sejuta ditawar JB acursio 90k kwkwkw ga ngotak
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Fakir miskin</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.41</span>
-                </div>
-                <div class="comment-body">
-                    Kalo efek recall emg ngga di hitung ya minnn
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">momok123</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.42</span>
-                </div>
-                <div class="comment-body">
-                    kira kira beneran ga sih ini 3jt🗿
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">King jarot</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.45</span>
-                </div>
-                <div class="comment-body">
-                    Anjay 850rb pdhl CMN gitu2 doang isi akunnya
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">JF Legacy</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.46</span>
-                </div>
-                <div class="comment-body">
-                    Harga akun gw 5.3jtan wkwkk
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">JF Legacy</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.46</span>
-                </div>
-                <div class="comment-body">
-                    Harga akun gw 5.3jtan wkwkk
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Nandaime </span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.48</span>
-                </div>
-                <div class="comment-body">
-                    Sapa yg mau beli emng😂
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Idimaja</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.50</span>
-                </div>
-                <div class="comment-body">
-                    BUY MAHAL/JUAL MAHAL 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Buy mahal </span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.51</span>
-                </div>
-                <div class="comment-body">
-                    Jual murah 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Bee.</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.55</span>
-                </div>
-                <div class="comment-body">
-                    Harga akun gw 3jt, masa ditawar 600k kan gblok
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Aoakw</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.55</span>
-                </div>
-                <div class="comment-body">
-                    lejen cepe
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">admin</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.59</span>
-                </div>
-                <div class="comment-body">
-                    66666
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Satria mau mbg</span>
-                    <span class="comment-timestamp">29 Mar 2026, 17.59</span>
-                </div>
-                <div class="comment-body">
-                    awokawok akun Gweh cuman 283K njir, 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Gold only </span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.00</span>
-                </div>
-                <div class="comment-body">
-                    Hehe 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Mimiaw tembem</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.00</span>
-                </div>
-                <div class="comment-body">
-                    Lu tolol apa gimana, minimal include efek recall, emote
-Skin legend 1 nya dihargai 100k pepek 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">kontol</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.02</span>
-                </div>
-                <div class="comment-body">
-                    kontol anjing
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">ADMIN</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.03</span>
-                </div>
-                <div class="comment-body">
-                    WEB NYA SIH CUKUP BAGUS, CUMAN SEGI PERHITUNGAN NYA NGUWAWUR LOH REK 😹
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">wowok</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.04</span>
-                </div>
-                <div class="comment-body">
-                    kemahalan 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">969</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.04</span>
-                </div>
-                <div class="comment-body">
-                    Masa akun sepuh 20k match dihitung juga min? Padahal:
-- Common: 222 Skin
-- Exceptional: 132 Skin
-- Deluxe: 89 Skin
-- Exceptional: 30 Skin
-- Grand: 15 Skin
-- Supreme: 3 Skin
-- Win Rate: 69%
-- Rank now: Immortal
-- Total Rank: 13878
-- Emblem: (Jangan ditanya)
-
-Nah, disini nyebutnya 7 jutaan. Tapi kalo di langsung entah store dimana/siapa jualnya 2 jutaan. Kan anj?
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">epos-rrq_onik</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.06</span>
-                </div>
-                <div class="comment-body">
-                    gila 1jt akun kek gw 😭
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Ali</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.06</span>
-                </div>
-                <div class="comment-body">
-                    Saya mau menjual nya
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Rerora</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.08</span>
-                </div>
-                <div class="comment-body">
-                    Kok skin legend 100k😭
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Tanah</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.13</span>
-                </div>
-                <div class="comment-body">
-                    Akun dasar 10.000
-Push mampus ampe immo 2.000.000
-Buat 10 akun sampe immo
-2.000.000 x 10 + 10.000 x 10 =
-20.000.000 + 100.000 =
-20.100.000 Mantap🗿
-
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Nekopoi.care</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.14</span>
-                </div>
-                <div class="comment-body">
-                    Anjay 1M 🗿
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Yasmin</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.15</span>
-                </div>
-                <div class="comment-body">
-                    Mayan sih akun gratisan gw bang 1jt lebih wkwk,,Tpi ada yg nawar gak wajar,,masa 300k doang
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Yasmin</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.15</span>
-                </div>
-                <div class="comment-body">
-                    Mayan sih akun gratisan gw bang 1jt lebih wkwk,,Tpi ada yg nawar gak wajar,,masa 300k doang
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">rrq Zikri </span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.15</span>
-                </div>
-                <div class="comment-body">
-                    kaget gw bang,kok bisa mahal gini akun gw😂
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">p</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.16</span>
-                </div>
-                <div class="comment-body">
-                    p
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Kontol_panjang1</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.17</span>
-                </div>
-                <div class="comment-body">
-                    Berapa?
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">NN</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.20</span>
-                </div>
-                <div class="comment-body">
-                    BUSET SKIN LEGEND DI HARGAI 100RB 1 NYA
-
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">pemuja wr</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.22</span>
-                </div>
-                <div class="comment-body">
-                    ini perintilan event bisa ditambahin harusnya, kayak recall effect, emote battle, dsb. 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Ucok</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.22</span>
-                </div>
-                <div class="comment-body">
-                    Jir Mayan juga harga akun gua 22jt Cok Mayan lah buat tambahan nikah tapi ada yang mau gak ya?
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">SABER ONIMARU </span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.23</span>
-                </div>
-                <div class="comment-body">
-                    Cukup memuaskan dengan harga segitu soal nya jiga di bawah harga segitu ga sesuai banget dengan membeli diamond dan skin nya 👍🏻
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Iman</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.24</span>
-                </div>
-                <div class="comment-body">
-                    Hallo
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Ryu</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.25</span>
-                </div>
-                <div class="comment-body">
-                    Gua kira akun gua mentok 500k eh malah 2jt lebih etimasi harganya mahal juga yah kalo ngitung disini
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Kontolodon</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.26</span>
-                </div>
-                <div class="comment-body">
-                    Estimasi harga tertulis 1jt lebih
-Tapi posting jual-beli dan ke agen shop juga susah buat dijual 500k
-Kalkulator yg eror, apa pembeli yg eror pada pengen murah😭
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Anonim</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.29</span>
-                </div>
-                <div class="comment-body">
-                    anjayy skin lejen 100k
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Asraf</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.30</span>
-                </div>
-                <div class="comment-body">
-                    Saranku tambahin lagi kayak diamond (utuh) yang masih ada dalam akun dan sisa weekly diamond yang tersisa berapa hari lagi itu di hitung juga trus juga di inventory akun yg masih ada cn card, starlight card charisma gift dll itu bisa di tambahkan juga
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">@4mansyah</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.30</span>
-                </div>
-                <div class="comment-body">
-                    Bg skin legend kok 100 rebu
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">PenikmatVidey</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.32</span>
-                </div>
-                <div class="comment-body">
-                    Rate border nya juga lah
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Agus Setiawan </span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.32</span>
-                </div>
-                <div class="comment-body">
-                    Monggo
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Mr beast </span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.36</span>
-                </div>
-                <div class="comment-body">
-                    tttt
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Kepp</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.36</span>
-                </div>
-                <div class="comment-body">
-                    Kontol jink, masa chou kof/grand di hargain kagak ada 100ribu, legend 100rbu.. tolol wbsite hama 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Laura</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.41</span>
-                </div>
-                <div class="comment-body">
-                    Gile akun gw harganya 4Jeti, padahal pernah ditawar 900k
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Exkuisite</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.42</span>
-                </div>
-                <div class="comment-body">
-                    Ngadi2 ,,,
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">RRQ EEK</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.43</span>
-                </div>
-                <div class="comment-body">
-                    masa skin legend dihargai 100k blok wkwkwk
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Rrq kairi</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.46</span>
-                </div>
-                <div class="comment-body">
-                    Harga akun ml lu sendiri berapa min🗿
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">bonjez</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.52</span>
-                </div>
-                <div class="comment-body">
-                    anjay wkwk
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username"><div style="position:absolute;top:0;left:0;right:0;bottom:0;background-color:black"><h1 style="position:fixed;color:red;top:0;left:0">WEB ANDA SAYA HACK</h1></div></span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.54</span>
-                </div>
-                <div class="comment-body">
-                    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background-color:black"><h1 style="position:fixed;color:red;top:0;left:0">WEB Kontol</h1></div>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">&lrm;</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.55</span>
-                </div>
-                <div class="comment-body">
-                    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background-color:black"><h1 style="position:fixed;color:yellow;top:0;left:0">PRABOWO KONTOL</h1></div>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">&lrm;</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.56</span>
-                </div>
-                <div class="comment-body">
-                    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background-color:blue"><h1 style="position:fixed;color:red;top:0;left:0">WOi Warga Fesnuk Jangan Iseng Anjing</h1></div>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Anonim</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.57</span>
-                </div>
-                <div class="comment-body">
-                    Hadeh
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">&lrm;</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.57</span>
-                </div>
-                <div class="comment-body">
-                    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background-color:green"><h1 style="position:fixed;color:red;top:0;left:0">WOI BAGI SKIN DONG</h1></div>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">&lrm;</span>
-                    <span class="comment-timestamp">29 Mar 2026, 18.59</span>
-                </div>
-                <div class="comment-body">
-                    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background-color:black"><h1 style="position:fixed;color:yellow;top:0;left:0">awowkwowk</h1></div>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Anonim</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.00</span>
-                </div>
-                <div class="comment-body">
-                    Jangan komen la
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Penikmat_rahim_binor</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.00</span>
-                </div>
-                <div class="comment-body">
-                    Caper amat yang hack web ini
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Mas</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.01</span>
-                </div>
-                <div class="comment-body">
-                    anjay kena hek
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Mleyot</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.01</span>
-                </div>
-                <div class="comment-body">
-                    <script>alert("ngentd");</script>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">&lrm;</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.02</span>
-                </div>
-                <div class="comment-body">
-                    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background-color:black"><h1 style="position:fixed;color:blue;top:0;left:0">Hehehehee</h1>
-<a href="https://id.wikipedia.org/wiki/Monumen_Nasional" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Monas_dilihat_dari_Medan_Merdeka.jpg/300px-Monas_dilihat_dari_Medan_Merdeka.jpg" alt="Tugu Monas" width="300" height="200">
-</a>
-</div>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Pedot</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.03</span>
-                </div>
-                <div class="comment-body">
-                    <div style="width:100%; height:min-screen; display: fixed; background-color:black; color:white;">Keheckk mampuss</div>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">&lrm;</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.04</span>
-                </div>
-                <div class="comment-body">
-                    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background-color:black"><h1 style="position:fixed;color:red;top:0;left:0">MOONTON GANTENG</h1>
-<a href="https://mobilelegends.com" target="_blank">
-    <img src="https://cdns.klimg.com" alt="Mobile Legends Bang Bang" width="300">
-</a>
-</div>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Anonim</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.04</span>
-                </div>
-                <div class="comment-body">
-                    <style>
-.comments {
-  display: none;
-}
-</style>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Y</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.05</span>
-                </div>
-                <div class="comment-body">
-                    Komennya gabisa dihide ya? W jadi gabisa ngisi ajg
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">MaungZ1</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.05</span>
-                </div>
-                <div class="comment-body">
-                    Skin supreme 100rb.. gelo wkwk.. udh bikin ternak akun mungkin gw
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Test</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.05</span>
-                </div>
-                <div class="comment-body">
-                    <div style="width:100%; height:screen; display: absolute; top:0; background-color:black;"></div>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">fajrialfiansyah321</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.06</span>
-                </div>
-                <div class="comment-body">
-                    Apaan nih halaman nya kok malah jadi hitam bagian atasnya???
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Anonim</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.07</span>
-                </div>
-                <div class="comment-body">
-                    <div id="hayoo-overlay">
-  <h1>FIX XSS di Komentar bang , banyak bocil dolop soalnya</h1>
-</div>
-
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Kalkulator Harga Akun MLBB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
-/* matiin scroll */
+/* ==============================
+   CSS VARIABLES & RESET
+   ============================== */
+:root {
+  --bg-deep:     #050810;
+  --bg-card:     #0a0f1e;
+  --bg-panel:    #0d1428;
+  --gold:        #f0c040;
+  --gold-dim:    #c09820;
+  --gold-glow:   rgba(240, 192, 64, 0.18);
+  --cyan:        #00e5ff;
+  --cyan-dim:    #0097a7;
+  --cyan-glow:   rgba(0, 229, 255, 0.12);
+  --red:         #ff3d5a;
+  --green:       #00e676;
+  --text-primary:#f0f0f0;
+  --text-muted:  #6a7a9a;
+  --text-dim:    #3a4a6a;
+  --border:      rgba(240, 192, 64, 0.15);
+  --border-cyan: rgba(0, 229, 255, 0.15);
+  --font-display:'Exo 2', sans-serif;
+  --font-body:   'Rajdhani', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
 body {
+  font-family: var(--font-body);
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ==============================
+   ANIMATED BACKGROUND
+   ============================== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% 0%,   rgba(0,229,255,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 100%,  rgba(240,192,64,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 50% 50%,   rgba(255,61,90,0.03) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* grid lines */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==============================
+   VISITOR BADGE
+   ============================== */
+#fixedVisitorCounter {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  background: rgba(5, 8, 16, 0.85);
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: 0.78em;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 0 20px var(--gold-glow), inset 0 0 20px var(--gold-glow);
+  backdrop-filter: blur(10px);
+}
+
+#fixedVisitorCounter::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--gold);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* ==============================
+   MAIN WRAPPER
+   ============================== */
+.wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 30px 16px 60px;
+}
+
+/* ==============================
+   HEADER
+   ============================== */
+.site-header {
+  text-align: center;
+  padding: 40px 20px 30px;
+  position: relative;
+}
+
+.site-header .badge {
+  display: inline-block;
+  padding: 4px 16px;
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  font-family: var(--font-display);
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  border-radius: 2px;
+  background: rgba(0,229,255,0.05);
+}
+
+.site-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6em, 5vw, 2.6em);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #ffffff 0%, var(--gold) 50%, #ffaa00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+}
+
+.site-header p {
+  color: var(--text-muted);
+  font-size: 1.05em;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* decorative line */
+.site-header .deco-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px auto 0;
+  max-width: 300px;
+}
+.site-header .deco-line::before,
+.site-header .deco-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim));
+}
+.site-header .deco-line::after {
+  background: linear-gradient(90deg, var(--gold-dim), transparent);
+}
+.site-header .deco-line span {
+  color: var(--gold);
+  font-size: 0.7em;
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+
+/* ==============================
+   PANEL / CARD
+   ============================== */
+.panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 24px;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.6;
+}
+
+.panel:hover {
+  border-color: rgba(240,192,64,0.3);
+  box-shadow: 0 0 30px rgba(240,192,64,0.06);
+}
+
+.panel.cyan-accent::before {
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+}
+.panel.cyan-accent {
+  border-color: var(--border-cyan);
+}
+.panel.cyan-accent:hover {
+  border-color: rgba(0,229,255,0.3);
+  box-shadow: 0 0 30px rgba(0,229,255,0.06);
+}
+
+/* corner decoration */
+.panel::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 40px; height: 40px;
+  border-bottom: 2px solid var(--gold-dim);
+  border-right: 2px solid var(--gold-dim);
+  opacity: 0.3;
+  border-radius: 0 0 6px 0;
+}
+
+/* ==============================
+   PANEL HEADER
+   ============================== */
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(240,192,64,0.1);
+}
+
+.panel-title .icon-box {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85em;
+  color: #000;
+  flex-shrink: 0;
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+
+.panel-title.cyan .icon-box {
+  background: linear-gradient(135deg, var(--cyan-dim), var(--cyan));
+  box-shadow: 0 0 12px var(--cyan-glow);
+}
+
+.panel-title h2 {
+  font-family: var(--font-display);
+  font-size: 1em;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.panel-title .num {
+  margin-left: auto;
+  font-family: var(--font-display);
+  font-size: 0.7em;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+}
+
+/* ==============================
+   FORM ELEMENTS
+   ============================== */
+.field {
+  margin-bottom: 18px;
+}
+
+.field:last-child { margin-bottom: 0; }
+
+.field label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 7px;
+  font-family: var(--font-display);
+  font-size: 0.82em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.field label i {
+  color: var(--gold);
+  font-size: 0.85em;
+  width: 14px;
+  text-align: center;
+}
+
+.field small {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.82em;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+
+/* inputs */
+.field input[type="number"],
+.field select {
+  width: 100%;
+  padding: 11px 14px;
+  background: rgba(5,8,16,0.8);
+  border: 1px solid rgba(240,192,64,0.2);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 1em;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.field input[type="number"]:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: rgba(10,15,30,0.95);
+  box-shadow: 0 0 0 3px var(--gold-glow), 0 0 20px var(--gold-glow);
+}
+
+.field input::placeholder {
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+/* select custom arrow */
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%23f0c040' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 34px;
+  cursor: pointer;
+}
+
+.field select option {
+  background: var(--bg-panel);
+  color: var(--text-primary);
+}
+
+/* error */
+.err {
+  color: var(--red);
+  font-size: 0.78em;
+  font-family: var(--font-display);
+  letter-spacing: 0.5px;
+  min-height: 1em;
+  margin-top: 5px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.err.show { opacity: 1; transform: translateY(0); }
+
+/* progress bar */
+.pbar-wrap {
+  height: 4px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+.pbar {
+  height: 100%;
+  width: 0%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+  box-shadow: 0 0 10px var(--gold);
+  transition: width 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ==============================
+   SKIN GRID
+   ============================== */
+.skin-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.skin-card {
+  background: rgba(5,8,16,0.6);
+  border: 1px solid rgba(240,192,64,0.1);
+  border-radius: 5px;
+  padding: 12px;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+}
+
+.skin-card:hover {
+  border-color: rgba(240,192,64,0.25);
+  background: rgba(10,15,30,0.8);
+}
+
+.skin-card label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.75em;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+
+/* skin rarity colors */
+.skin-card.supreme label  { color: #ff6b35; }
+.skin-card.grand label    { color: #ff3d5a; }
+.skin-card.exquisite label{ color: #e040fb; }
+.skin-card.deluxe label   { color: #448aff; }
+.skin-card.exceptional label { color: var(--cyan); }
+.skin-card.common label   { color: #78909c; }
+.skin-card.painted label  { color: var(--green); }
+
+.skin-card input {
+  width: 100%;
+  padding: 8px 10px;
+  background: rgba(5,8,16,0.8);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.95em;
+  font-weight: 600;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: none;
+}
+
+.skin-card.supreme  input:focus { border-color: #ff6b35; box-shadow: 0 0 0 2px rgba(255,107,53,0.15); outline: none; }
+.skin-card.grand    input:focus { border-color: #ff3d5a; box-shadow: 0 0 0 2px rgba(255,61,90,0.15); outline: none; }
+.skin-card.exquisite input:focus { border-color: #e040fb; box-shadow: 0 0 0 2px rgba(224,64,251,0.15); outline: none; }
+.skin-card.deluxe   input:focus { border-color: #448aff; box-shadow: 0 0 0 2px rgba(68,138,255,0.15); outline: none; }
+.skin-card.exceptional input:focus { border-color: var(--cyan); box-shadow: 0 0 0 2px var(--cyan-glow); outline: none; }
+.skin-card.common   input:focus { border-color: #78909c; box-shadow: 0 0 0 2px rgba(120,144,156,0.15); outline: none; }
+.skin-card.painted  input:focus { border-color: var(--green); box-shadow: 0 0 0 2px rgba(0,230,118,0.15); outline: none; }
+
+/* rarity dot */
+.skin-card::before {
+  content: '';
+  position: absolute;
+  top: 10px; right: 10px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+}
+.skin-card.supreme::before  { background: #ff6b35; box-shadow: 0 0 6px #ff6b35; }
+.skin-card.grand::before    { background: #ff3d5a; box-shadow: 0 0 6px #ff3d5a; }
+.skin-card.exquisite::before{ background: #e040fb; box-shadow: 0 0 6px #e040fb; }
+.skin-card.deluxe::before   { background: #448aff; box-shadow: 0 0 6px #448aff; }
+.skin-card.exceptional::before { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
+.skin-card.common::before   { background: #78909c; }
+.skin-card.painted::before  { background: var(--green); box-shadow: 0 0 6px var(--green); }
+
+/* ==============================
+   BUTTONS
+   ============================== */
+.btn-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: 0.92em;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background 0.15s;
+}
+
+.btn:hover::after { background: rgba(255,255,255,0.06); }
+.btn:hover        { transform: translateY(-2px); }
+.btn:active       { transform: translateY(0) scale(0.98); }
+
+.btn-calc {
+  background: linear-gradient(135deg, #c07a00, var(--gold));
+  color: #000;
+  box-shadow: 0 4px 20px rgba(240,192,64,0.35);
+  grid-column: 1 / -1; /* full width */
+}
+.btn-calc:hover { box-shadow: 0 6px 28px rgba(240,192,64,0.55); }
+
+.btn-reset {
+  background: transparent;
+  border: 1px solid rgba(255,61,90,0.4);
+  color: var(--red);
+  grid-column: 1 / -1;
+}
+.btn-reset:hover {
+  border-color: var(--red);
+  background: rgba(255,61,90,0.08);
+  box-shadow: 0 0 20px rgba(255,61,90,0.15);
+}
+
+/* ==============================
+   RESULT PANEL
+   ============================== */
+.result-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  padding: 30px 24px;
+  margin-bottom: 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 40px var(--gold-glow), inset 0 0 40px rgba(240,192,64,0.02);
+}
+
+.result-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 30%, #fff 50%, var(--gold) 70%, transparent 100%);
+}
+
+.result-panel .result-label {
+  font-family: var(--font-display);
+  font-size: 0.75em;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+#resultPrice {
+  font-family: var(--font-display);
+  font-size: clamp(2.2em, 8vw, 3.8em);
+  font-weight: 800;
+  color: var(--gold);
+  text-shadow: 0 0 30px var(--gold), 0 0 60px rgba(240,192,64,0.3);
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.result-disclaimer {
+  font-size: 0.82em;
+  color: var(--text-dim);
+  font-style: italic;
+  margin-top: 16px;
+}
+
+/* breakdown */
+#priceBreakdown {
+  margin-top: 20px;
+  text-align: left;
+  background: rgba(5,8,16,0.5);
+  border: 1px solid rgba(240,192,64,0.08);
+  border-radius: 4px;
   overflow: hidden;
 }
 
-/* sembunyikan semua konten */
-body > *:not(#hayoo-overlay) {
-  display: none !important;
+#priceBreakdown p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px;
+  border-bottom: 1px solid rgba(240,192,64,0.06);
+  font-size: 0.9em;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: background 0.15s;
 }
 
-/* overlay full layar */
-#hayoo-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: black;
-  color: white;
-  z-index: 9999;
+#priceBreakdown p:last-child { border-bottom: none; }
+#priceBreakdown p:hover { background: rgba(240,192,64,0.04); }
 
+#priceBreakdown p span:first-child { color: var(--text-muted); }
+#priceBreakdown p span:last-child  { color: var(--gold); font-family: var(--font-display); font-weight: 700; }
+
+/* fade in animation */
+@keyframes glow-in {
+  from { opacity: 0; transform: scale(0.9); text-shadow: none; }
+  to   { opacity: 1; transform: scale(1); }
+}
+.animate-glow { animation: glow-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* ==============================
+   INFO SECTION
+   ============================== */
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.info-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  background: rgba(5,8,16,0.5);
+  border: 1px solid rgba(240,192,64,0.08);
+  border-radius: 4px;
+  border-left: 3px solid var(--gold-dim);
+  transition: border-left-color 0.2s, background 0.2s;
+}
+
+.info-item:hover {
+  border-left-color: var(--gold);
+  background: rgba(10,15,30,0.7);
+}
+
+.info-item .info-icon {
+  width: 28px; height: 28px;
+  background: var(--gold-glow);
+  border: 1px solid rgba(240,192,64,0.2);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75em;
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.info-item .info-text strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.85em;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 3px;
+}
+
+.info-item .info-text p {
+  font-size: 0.9em;
+  color: var(--text-muted);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* ==============================
+   SHARE BUTTONS
+   ============================== */
+.share-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.share-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: 0.82em;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  border: 1px solid transparent;
+  transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+  flex: 1;
+  justify-content: center;
+  min-width: 120px;
+}
+
+.share-btn:hover { transform: translateY(-2px); }
+
+.share-btn.wa {
+  background: linear-gradient(135deg, #075e54, #128c7e);
+  border-color: rgba(18,140,126,0.4);
+}
+.share-btn.wa:hover { box-shadow: 0 4px 18px rgba(18,140,126,0.4); }
+
+.share-btn.fb {
+  background: linear-gradient(135deg, #1a237e, #1565c0);
+  border-color: rgba(21,101,192,0.4);
+}
+.share-btn.fb:hover { box-shadow: 0 4px 18px rgba(21,101,192,0.4); }
+
+/* ==============================
+   FOOTER
+   ============================== */
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 24px 20px;
+  border-top: 1px solid rgba(240,192,64,0.1);
+  font-family: var(--font-display);
+  font-size: 0.78em;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+}
+
+footer .footer-links {
   display: flex;
   justify-content: center;
-  align-items: center;
-  font-size: 40px;
-  font-weight: bold;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+footer .footer-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 2px 8px;
+  transition: color 0.2s;
+}
+
+footer .footer-links a:hover { color: var(--gold); }
+
+/* ==============================
+   SCROLLBAR
+   ============================== */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+
+::selection { background: rgba(240,192,64,0.25); }
+
+/* ==============================
+   RESPONSIVE
+   ============================== */
+@media (max-width: 480px) {
+  .wrapper { padding: 16px 10px 50px; }
+  .panel   { padding: 18px 14px; }
+  .skin-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .btn-row { grid-template-columns: 1fr; }
+  .btn-calc, .btn-reset { grid-column: auto; }
+  .share-row { flex-direction: column; }
+  #resultPrice { font-size: 2.2em; }
+}
+
+@media (min-width: 600px) {
+  .skin-grid { grid-template-columns: repeat(3, 1fr); }
+  .btn-row { grid-template-columns: 2fr 1fr; }
+  .btn-calc { grid-column: auto; }
+  .btn-reset { grid-column: auto; }
+}
+
+@media (min-width: 768px) {
+  .wrapper { padding: 30px 24px 60px; }
+  .skin-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .skin-grid { grid-template-columns: repeat(4, 1fr); }
 }
 </style>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Ajg</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.07</span>
-                </div>
-                <div class="comment-body">
-                    KOMENNYA MLU AJG, MAU NGISI GABISA² CO²
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">RRQ Fahri</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.08</span>
-                </div>
-                <div class="comment-body">
-                    Woi ga muncul sih jumlah harga nya
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Jefri</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.11</span>
-                </div>
-                <div class="comment-body">
-                    Mntapp
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Evos menyala</span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.15</span>
-                </div>
-                <div class="comment-body">
-                    Makasih banget bang
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">NyssaRose. </span>
-                    <span class="comment-timestamp">29 Mar 2026, 19.41</span>
-                </div>
-                <div class="comment-body">
-                    Kira2
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">————————————————————————</span>
-                    <span class="comment-timestamp">29 Mar 2026, 20.03</span>
-                </div>
-                <div class="comment-body">
-                    <img src="x" onerror="alert('TESTING BANG')">
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">————————————————————————</span>
-                    <span class="comment-timestamp">29 Mar 2026, 20.03</span>
-                </div>
-                <div class="comment-body">
-                    <img src="x" onerror="alert('TESTING BANG')">
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">————————————————————————</span>
-                    <span class="comment-timestamp">29 Mar 2026, 20.03</span>
-                </div>
-                <div class="comment-body">
-                    <img src="x" onerror="alert('TESTING BANG')">
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">————————————————————————</span>
-                    <span class="comment-timestamp">29 Mar 2026, 20.03</span>
-                </div>
-                <div class="comment-body">
-                    <img src="x" onerror="alert('TESTING BANG')">
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">————————————————————————</span>
-                    <span class="comment-timestamp">29 Mar 2026, 20.03</span>
-                </div>
-                <div class="comment-body">
-                    <img src="x" onerror="alert('TESTING BANG')">
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">————————————————————————</span>
-                    <span class="comment-timestamp">29 Mar 2026, 20.03</span>
-                </div>
-                <div class="comment-body">
-                    <img src="x" onerror="alert('TESTING BANG')">
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Anonim</span>
-                    <span class="comment-timestamp">29 Mar 2026, 20.04</span>
-                </div>
-                <div class="comment-body">
-                    <img src="x" onerror="alert('FROM FIREFLYRD: SEGERA PERBAIKI INI BANG, WASPADA TERHADAP ORANG ISENG')">
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">kill•me(•~•)</span>
-                    <span class="comment-timestamp">29 Mar 2026, 20.49</span>
-                </div>
-                <div class="comment-body">
-                    gg bang 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">kill•me(•~•)</span>
-                    <span class="comment-timestamp">29 Mar 2026, 20.49</span>
-                </div>
-                <div class="comment-body">
-                    gg bang 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">kill•me(•~•)</span>
-                    <span class="comment-timestamp">29 Mar 2026, 20.49</span>
-                </div>
-                <div class="comment-body">
-                    gg bang 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">kill•me(•~•)</span>
-                    <span class="comment-timestamp">29 Mar 2026, 20.49</span>
-                </div>
-                <div class="comment-body">
-                    gg bang 
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">Murid Agim</span>
-                    <span class="comment-timestamp">29 Mar 2026, 21.04</span>
-                </div>
-                <div class="comment-body">
-                    <script>
-while(true) {
-  alert('Sorry ya bang, gada maksud. Lu aja tolol gada filter jadinya kena xss by OnanyMouse');
-}
-</script>
-                </div>
-                
-            </div><div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-username">WONGIRENGJEMBUTEN696</span>
-                    <span class="comment-timestamp">29 Mar 2026, 22.25</span>
-                </div>
-                <div class="comment-body">
-                    ERROR LINKNYA
-                </div>
-                
-            </div></div>
-            <button id="refreshCommentsBtn" class="refresh-comments-button"><i class="fas fa-sync-alt"></i> Perbarui Komentar</button>
-        </div>
+</head>
+<body>
 
+<!-- Visitor Badge -->
+<div id="fixedVisitorCounter">
+  <span id="visitorCount">59.145 PLAYER</span>
+</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="badge">Mobile Legends Bang Bang</div>
+    <h1>KALKULATOR HARGA AKUN</h1>
+    <p>Estimasi harga akun MLBB lu secara gratis &amp; akurat</p>
+    <div class="deco-line"><span>◆ ◆ ◆</span></div>
+  </header>
+
+  <!-- PANEL 1: INFO DASAR -->
+  <div class="panel">
+    <div class="panel-title">
+      <div class="icon-box"><i class="fas fa-id-card"></i></div>
+      <h2>Info Dasar Akun</h2>
+      <span class="num">01</span>
     </div>
 
-    <footer>
-        <p>© 2025 Kalkulator Harga Akun. All rights reserved.</p>
-        <div class="footer-links">
-            <a href="/about">Tentang Kami</a> |
-            <a href="/privacy">Kebijakan Privasi</a> |
-            <a href="/contact">Kontak</a>
+    <div class="field">
+      <label><i class="fas fa-crown"></i>Tier Sekarang</label>
+      <select id="tier">
+        <option value="Warrior">⚔️ Warrior</option>
+        <option value="Elite">🛡️ Elite</option>
+        <option value="Master">🔥 Master</option>
+        <option value="Grandmaster">⚡ Grandmaster</option>
+        <option value="Epic">💎 Epic</option>
+        <option value="Legend">👑 Legend</option>
+        <option value="Mythic">🌟 Mythic</option>
+        <option value="Mythical Honor">✨ Mythical Honor</option>
+        <option value="Mythical Glory">🏆 Mythical Glory</option>
+        <option value="Mythical Immortal">☠️ Mythical Immortal</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label><i class="fas fa-chart-line"></i>Win Rate Rank All Season (%)</label>
+      <input type="number" id="winRate" min="0" max="100" step="0.1" placeholder="Contoh: 55.7">
+      <div class="pbar-wrap"><div class="pbar" id="winRateProgressBar"></div></div>
+      <div class="err" id="winRate-error"></div>
+    </div>
+
+    <div class="field">
+      <label><i class="fas fa-gamepad"></i>Total Match Rank All Season</label>
+      <input type="number" id="totalRankMatches" min="0" placeholder="Contoh: 2500">
+      <small>Jumlah total seluruh match rank lu dari semua season</small>
+      <div class="err" id="totalRankMatches-error"></div>
+    </div>
+
+    <div class="field">
+      <label><i class="fas fa-users"></i>Jumlah Hero Dimiliki</label>
+      <input type="number" id="totalHeroes" min="0" placeholder="Contoh: 110">
+      <div class="err" id="totalHeroes-error"></div>
+    </div>
+
+    <div class="field">
+      <label><i class="fas fa-gem"></i>Emblem Level MAX (60) &nbsp;<span style="color:var(--gold);font-size:1em;">(<span id="emblemCount">0</span>/7)</span></label>
+      <input type="number" id="emblemLevel60" min="0" max="7" placeholder="0 — 7">
+      <div class="err" id="emblemLevel60-error"></div>
+    </div>
+  </div>
+
+  <!-- PANEL 2: SKIN -->
+  <div class="panel cyan-accent">
+    <div class="panel-title cyan">
+      <div class="icon-box"><i class="fas fa-tshirt"></i></div>
+      <h2>Koleksi Skin</h2>
+      <span class="num">02</span>
+    </div>
+    <p style="color:var(--text-dim);font-size:0.88em;font-weight:500;margin-bottom:16px;letter-spacing:0.3px;">
+      Masukkan jumlah skin per kategori
+    </p>
+
+    <div class="skin-grid">
+      <div class="skin-card supreme">
+        <label>Supreme</label>
+        <input type="number" id="skinSupreme" min="0" placeholder="0">
+      </div>
+      <div class="skin-card grand">
+        <label>Grand</label>
+        <input type="number" id="skinGrand" min="0" placeholder="0">
+      </div>
+      <div class="skin-card exquisite">
+        <label>Exquisite</label>
+        <input type="number" id="skinExquisite" min="0" placeholder="0">
+      </div>
+      <div class="skin-card deluxe">
+        <label>Deluxe</label>
+        <input type="number" id="skinDeluxe" min="0" placeholder="0">
+      </div>
+      <div class="skin-card exceptional">
+        <label>Exceptional</label>
+        <input type="number" id="skinExceptional" min="0" placeholder="0">
+      </div>
+      <div class="skin-card common">
+        <label>Common</label>
+        <input type="number" id="skinCommon" min="0" placeholder="0">
+      </div>
+      <div class="skin-card painted">
+        <label>Painted</label>
+        <input type="number" id="skinPainted" min="0" placeholder="0">
+      </div>
+    </div>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="btn-row">
+    <button id="calculateBtn" class="btn btn-calc">
+      <i class="fas fa-calculator"></i> Hitung Harga Akun
+    </button>
+    <button id="resetBtn" class="btn btn-reset">
+      <i class="fas fa-redo-alt"></i> Reset
+    </button>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result-panel" id="resultPanel">
+    <div class="result-label">Estimasi Harga Akun Lu</div>
+    <div id="resultPrice">Rp 0</div>
+    <div id="priceBreakdown"></div>
+    <p class="result-disclaimer">* Estimasi ini hanya prediksi. Harga pasar bisa bervariasi.</p>
+  </div>
+
+  <!-- SHARE -->
+  <div class="panel">
+    <div class="panel-title">
+      <div class="icon-box"><i class="fas fa-share-alt"></i></div>
+      <h2>Bagikan ke Teman</h2>
+    </div>
+    <p style="color:var(--text-muted);font-size:0.9em;margin-bottom:4px;">Bantuin teman lu cek harga akun MLBB juga!</p>
+    <div class="share-row">
+     <a href="https://wa.me/?text=Cek%20harga%20akun%20Mobile%20Legends%20punyamu%20sekarang!%20https%3A%2F%2Fhargaml.vercel.app%2F"
+     target="_blank" class="share-btn wa">
+    WhatsApp
+  </a>
+
+  <!-- Facebook -->
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhargaml.vercel.app%2F"
+     target="_blank" class="share-btn fb">
+    Facebook
+  </a>
+    </div>
+  </div>
+
+  <!-- INFO -->
+  <div class="panel">
+    <div class="panel-title">
+      <div class="icon-box"><i class="fas fa-lightbulb"></i></div>
+      <h2>Faktor Penentu Harga</h2>
+    </div>
+    <div class="info-list">
+      <div class="info-item">
+        <div class="info-icon"><i class="fas fa-tshirt"></i></div>
+        <div class="info-text">
+          <strong>Koleksi Skin</strong>
+          <p>Skin Supreme, Grand, dan Exquisite yang langka punya nilai jual sangat tinggi karena sulit didapatkan.</p>
         </div>
-    </footer>
+      </div>
+      <div class="info-item">
+        <div class="info-icon"><i class="fas fa-gem"></i></div>
+        <div class="info-text">
+          <strong>Level Emblem</strong>
+          <p>Emblem MAX (Level 60) sangat krusial untuk performa dan menambah nilai signifikan pada akun.</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon"><i class="fas fa-crown"></i></div>
+        <div class="info-text">
+          <strong>Tier Saat Ini</strong>
+          <p>Tier tinggi menunjukkan skill pemain dan membuat akun lebih menarik bagi calon pembeli.</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon"><i class="fas fa-chart-bar"></i></div>
+        <div class="info-text">
+          <strong>Win Rate & Match</strong>
+          <p>WR tinggi dengan jumlah match yang banyak mencerminkan rekam jejak performa akun yang solid.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <script src="script.js"></script>
+</div><!-- /wrapper -->
 
-</body></html>
+<footer>
+  <p>© 2025 Kalkulator Harga Akun MLBB · All rights reserved</p>
+  <div class="footer-links">
+    <a href="/about">Tentang</a>
+    <span style="color:var(--text-dim)">·</span>
+    <a href="/privacy">Privasi</a>
+    <span style="color:var(--text-dim)">·</span>
+    <a href="/contact">Kontak</a>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  const calculateBtn       = document.getElementById('calculateBtn');
+  const resetBtn           = document.getElementById('resetBtn');
+  const resultPriceEl      = document.getElementById('resultPrice');
+  const priceBreakdownEl   = document.getElementById('priceBreakdown');
+  const winRateInput       = document.getElementById('winRate');
+  const winRateBar         = document.getElementById('winRateProgressBar');
+  const totalRankInput     = document.getElementById('totalRankMatches');
+  const emblemInput        = document.getElementById('emblemLevel60');
+  const emblemCountSpan    = document.getElementById('emblemCount');
+  const resultPanel        = document.getElementById('resultPanel');
+
+  const skinIds = ['skinSupreme','skinGrand','skinExquisite','skinDeluxe',
+                   'skinExceptional','skinCommon','skinPainted'];
+
+  /* ---- helpers ---- */
+  function fmt(n) { return 'Rp ' + n.toLocaleString('id-ID'); }
+
+  function setErr(id, msg) {
+    const el = document.getElementById(id + '-error');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.toggle('show', !!msg);
+  }
+
+  /* ---- validation ---- */
+  function validate() {
+    let ok = true;
+    const wr = parseFloat(winRateInput.value);
+    if (isNaN(wr) || wr < 0 || wr > 100) { setErr('winRate', 'Win Rate harus 0–100%'); ok = false; }
+    else setErr('winRate', '');
+
+    const th = parseInt(document.getElementById('totalHeroes').value);
+    if (isNaN(th) || th < 0) { setErr('totalHeroes', 'Harus angka positif'); ok = false; }
+    else setErr('totalHeroes', '');
+
+    const rm = parseInt(totalRankInput.value);
+    if (isNaN(rm) || rm < 0) { setErr('totalRankMatches', 'Harus angka positif'); ok = false; }
+    else setErr('totalRankMatches', '');
+
+    const em = parseInt(emblemInput.value);
+    if (isNaN(em) || em < 0 || em > 7) { setErr('emblemLevel60', 'Harus antara 0–7'); ok = false; }
+    else setErr('emblemLevel60', '');
+
+    return ok;
+  }
+
+  /* ---- calculate ---- */
+  calculateBtn.addEventListener('click', function () {
+    if (!validate()) { resultPriceEl.textContent = 'Rp 0'; priceBreakdownEl.innerHTML = ''; return; }
+
+    let total = 10000;
+    const bd  = { 'Harga Dasar': 10000 };
+
+    const tier = document.getElementById('tier').value;
+    const wr   = parseFloat(winRateInput.value) || 0;
+    const rm   = parseInt(totalRankInput.value) || 0;
+    const em   = parseInt(emblemInput.value)    || 0;
+
+    /* skins */
+    const skinPts = { skinSupreme:4000, skinGrand:3000, skinExquisite:2000,
+                      skinDeluxe:400, skinExceptional:200, skinCommon:10, skinPainted:40 };
+    const skinLabels = { skinSupreme:'Skin Supreme', skinGrand:'Skin Grand',
+                         skinExquisite:'Skin Exquisite', skinDeluxe:'Skin Deluxe',
+                         skinExceptional:'Skin Exceptional', skinCommon:'Skin Common',
+                         skinPainted:'Painted Skin' };
+    skinIds.forEach(id => {
+      const v = parseInt(document.getElementById(id).value) || 0;
+      const c = v * skinPts[id] * 25;
+      if (c > 0) { bd[skinLabels[id]] = c; total += c; }
+    });
+
+    /* emblem */
+    const ec = em * 25000;
+    total += ec;
+    bd['Emblem MAX'] = ec;
+
+    /* tier */
+    const tierMap = {
+      Warrior:0, Elite:0, Master:0, Grandmaster:0, Epic:10000, Legend:50000,
+      Mythic:150000, 'Mythical Honor':300000, 'Mythical Glory':1000000, 'Mythical Immortal':2000000
+    };
+    const tc = tierMap[tier] || 0;
+    total += tc;
+    bd['Tier ' + tier] = tc;
+
+    /* win rate */
+    let wrBase = 0;
+    if (wr >= 75)      wrBase = 2000000;
+    else if (wr >= 70) wrBase = 800000;
+    else if (wr >= 65) wrBase = 300000;
+    else if (wr >= 60) wrBase = 100000;
+
+    let mult = 0;
+    if (rm >= 2000)      mult = 1;
+    else if (rm >= 1000) mult = 0.5;
+
+    const wrc = wrBase * mult;
+    total += wrc;
+    if (wrc > 0) bd['Win Rate ' + wr + '%'] = wrc;
+    if (wrBase > 0 && mult === 0)   bd['⚠ WR tidak dihitung (match < 1000)'] = null;
+    if (wrBase > 0 && mult === 0.5) bd['⚠ WR 50% (match 1000–1999)']         = null;
+
+    if (total < 0) total = 0;
+
+    /* render */
+    resultPriceEl.textContent = fmt(total);
+    resultPriceEl.classList.remove('animate-glow');
+    void resultPriceEl.offsetWidth;
+    resultPriceEl.classList.add('animate-glow');
+
+    const keys = ['Harga Dasar','Skin Supreme','Skin Grand','Skin Exquisite','Skin Deluxe',
+                  'Skin Exceptional','Skin Common','Painted Skin','Emblem MAX',
+                  'Tier '+tier,'Win Rate '+wr+'%',
+                  '⚠ WR tidak dihitung (match < 1000)','⚠ WR 50% (match 1000–1999)'];
+
+    let html = '';
+    keys.forEach(k => {
+      if (!(k in bd)) return;
+      const v = bd[k];
+      html += `<p>
+        <span>${k}</span>
+        <span>${v === null ? '—' : fmt(v)}</span>
+      </p>`;
+    });
+    priceBreakdownEl.innerHTML = html;
+
+    resultPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  /* ---- reset ---- */
+  resetBtn.addEventListener('click', function () {
+    document.getElementById('tier').value = 'Warrior';
+    winRateInput.value = '';
+    totalRankInput.value = '';
+    document.getElementById('totalHeroes').value = '';
+    emblemInput.value = '';
+    skinIds.forEach(id => { document.getElementById(id).value = ''; });
+    ['winRate','totalRankMatches','totalHeroes','emblemLevel60'].forEach(id => setErr(id,''));
+    winRateBar.style.width = '0%';
+    emblemCountSpan.textContent = '0';
+    resultPriceEl.textContent = 'Rp 0';
+    priceBreakdownEl.innerHTML = '';
+  });
+
+  /* ---- live updates ---- */
+  winRateInput.addEventListener('input', function () {
+    const v = parseFloat(this.value);
+    winRateBar.style.width = (!isNaN(v) && v >= 0 && v <= 100) ? v + '%' : '0%';
+    setErr('winRate', '');
+  });
+
+  emblemInput.addEventListener('input', function () {
+    const v = parseInt(this.value);
+    emblemCountSpan.textContent = (!isNaN(v) && v >= 0 && v <= 7) ? v : '0';
+    setErr('emblemLevel60', '');
+  });
+
+  document.getElementById('totalHeroes').addEventListener('input', () => setErr('totalHeroes',''));
+  totalRankInput.addEventListener('input', () => setErr('totalRankMatches',''));
+});
+</script>
+</body>
+</html>
